@@ -1,0 +1,17 @@
+body {
+    display: grid;
+    // opacity: 0.2;
+    position: relative;
+}
+
+.p {
+    background-color: green;
+    &__p {
+        background-color: yellow;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
