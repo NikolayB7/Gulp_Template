@@ -1,14 +1,16 @@
 const { src, dest, parallel, series, watch } = require('gulp');
 
-const browserSync = require('browser-sync').create();
-const concat = require('gulp-concat');
+
 const uglify = require('gulp-uglify-es').default; //модуль uglify - сжимает файлы
-const scss = require('gulp-sass');
-const autoprefixer = require('gulp-autoprefixer');
-const cleancss = require('gulp-clean-css');
-const imagemin = require('gulp-imagemin');
-const newer = require('gulp-newer');
-const del = require('del');
+const browserSync = require('browser-sync').create(),
+    concat = require('gulp-concat'),
+    scss = require('gulp-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
+    cleancss = require('gulp-clean-css'),
+    imagemin = require('gulp-imagemin'),
+    newer = require('gulp-newer'),
+    del = require('del'),
+    nunjucks = require('gulp-nunjucks'),
 
 
 function browsersync() {
