@@ -10,7 +10,7 @@ const browserSync = require('browser-sync').create(),
     imagemin = require('gulp-imagemin'),
     newer = require('gulp-newer'),
     del = require('del'),
-    nunjucks = require('gulp-nunjucks'),
+    nunjucks = require('gulp-nunjucks');
 
 
 function browsersync() {
@@ -56,6 +56,14 @@ function styles() {
         .pipe(browserSync.stream()) // Сделаем инъекцию в браузер
 }
 
+function htmlPrepare() {
+    return src('app/html/*.html')
+        .pipe(nunjucks.compile())
+        .pipe(dest('app/./'))
+        .pipe(browserSync.stream());
+}
+
+
 //start папка для стартовых изображений
 //finished папка для минифицированых изображений
 function images() {
@@ -96,7 +104,10 @@ function startwatch() {
     watch('app/**/scss/**/*', styles);
 
     // Мониторим файлы HTML на изменения
-    watch('app/**/*.html').on('change', browserSync.reload);
+    watch([
+        'app/html/*.html',
+        'app/html/utils/*.html',
+    ]).on('change', browserSync.reload);
 
     // Мониторим папку-источник изображений и выполняем images(), если есть изменения
     watch('app/images/start/**/*', images);
@@ -116,7 +127,7 @@ exports.cleanimg = cleanimg;
 exports.build = series(cleandist, styles, scripts, images, buildcopy);
 
 
-exports.dev = parallel(styles, scripts, browsersync, startwatch, images) //Вотчинг файлов
+exports.dev = parallel(htmlPrepare, styles, scripts, browsersync, startwatch, images) //Вотчинг файлов
 
 
 // if (process.env.NODE_ENV === 'production') {
