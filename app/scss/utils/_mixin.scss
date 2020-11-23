@@ -1,0 +1,123 @@
+@mixin container {
+    display: block;
+    margin: 0 auto;
+
+    max-width: 1170px;
+    min-width: 320px;
+}
+
+@mixin mmax($width, $height: 0) {
+    $w: $width + px;
+    $h: $height + px;
+
+    @if $height==0 {
+        @media all and (max-width: $w) {
+            @content;
+        }
+    }
+
+    @else {
+        @media all and (max-width: $w) and (max-height: $h) {
+            @content;
+        }
+    }
+}
+
+@mixin mmax-h($height) {
+    $h: $height + px;
+
+    @media all and (max-height: $h) {
+        @content;
+    }
+}
+
+@mixin adapt-img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+@mixin triangle($color, $size) {
+    @include ib;
+
+    border: $size / 2 + px solid transparent;
+    border-top-color: $color;
+    border-bottom: 0;
+
+    width: $size + px;
+    height: $size + px;
+}
+
+@mixin triangle-rev($color, $size) {
+    @include ib;
+
+    border: $size / 2 + px solid transparent;
+    border-bottom-color: $color;
+    border-top: 0;
+
+    width: $size + px;
+    height: $size + px;
+}
+
+@mixin triangle-right($color, $size) {
+    @include ib;
+
+    border: $size / 2 + px solid transparent;
+    border-left-color: $color;
+    border-right: 0;
+
+    width: $size + px;
+    height: $size + px;
+}
+
+
+
+@mixin full {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@mixin full-abs {
+    position: absolute;
+    @include full;
+}
+
+@mixin full-fix {
+    position: fixed;
+    @include full;
+}
+
+@mixin full-rel {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+
+@mixin flc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin fl-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+@mixin icon($w, $h, $image) {
+    width: $w;
+    height: $h;
+
+    background: transparent i($image) center center no-repeat;
+    background-size: 100% auto;
+}
+
+;

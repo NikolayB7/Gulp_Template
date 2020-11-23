@@ -1,0 +1,7 @@
+@function rem($pixels, $root: $fz-root) {
+    @return $pixels / $root+rem;
+}
+
+@function i($name) {
+    @return url('../i/#{$name}');
+}

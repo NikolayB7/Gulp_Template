@@ -70,24 +70,22 @@ function htmlPrepareDev() {
         .pipe(browserSync.reload({
             stream: true
         }));;
-    // .pipe(browserSync.reload({
-    //     stream: true
-    // }));
+
 }
 
 
 //start папка для стартовых изображений
-//finished папка для минифицированых изображений
+//minified папка для минифицированых изображений
 function images() {
     return src('app/images/start/**/*')
         .pipe(browserSync.stream())
-        .pipe(newer('app/images/finished/'))
+        .pipe(newer('app/images/minified/'))
         .pipe(imagemin())
-        .pipe(dest('app/images/finished/'))
+        .pipe(dest('app/images/minified/'))
 }
 
 function cleanimg() {
-    return del('app/images/finished/**/*', {
+    return del('app/images/minified/**/*', {
         force: true
     }) // Удаляем всё содержимое папки "app/images/dest/"
 }
@@ -104,7 +102,7 @@ function buildcopy() {
     return src([
             'app/css/**/*.min.css',
             'app/js/**/*.min.js',
-            'app/images/finished/**/*',
+            'app/images/minified/**/*',
             'app/**/*.html',
         ], {
             base: 'app'
@@ -147,7 +145,7 @@ exports.cleanimg = cleanimg;
 exports.build = series(cleandist, styles, scripts, images, buildcopy);
 
 
-exports.dev = parallel(htmlPrepareDev, styles, scripts, browsersync, startwatch, images) //Вотчинг файлов
+exports.dev = parallel(styles, scripts, browsersync, startwatch, images) //Вотчинг файлов
 
 
 // if (process.env.NODE_ENV === 'production') {
