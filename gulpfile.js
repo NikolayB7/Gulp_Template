@@ -1,4 +1,10 @@
-const { src, dest, parallel, series, watch } = require('gulp');
+const {
+    src,
+    dest,
+    parallel,
+    series,
+    watch
+} = require('gulp');
 
 
 const uglify = require('gulp-uglify-es').default; //модуль uglify - сжимает файлы
@@ -18,8 +24,8 @@ function browsersync() {
         server: {
             baseDir: "app/"
         },
-        notify: false,  //Откл ошибок
-        online: true   //Возможеость работать без сети интернет, но тогда нет параметра External для просмотра на мобильных устройствах
+        notify: false, //Откл ошибок
+        online: true //Возможеость работать без сети интернет, но тогда нет параметра External для просмотра на мобильных устройствах
     })
 }
 
@@ -27,9 +33,9 @@ function scripts() {
     //Собираем все фалы js в один далее подключаем все файлы с новой строки
     //concat - является отдельным пакетом gulp
     return src([
-        'node_modules/jquery/dist/jquery.min.js',
-        'app/js/script.js'
-    ])
+            'node_modules/jquery/dist/jquery.min.js',
+            'app/js/script.js'
+        ])
         .pipe(concat('main.min.js')) //main.min.js - название файла в который будет все собираться
         .pipe(uglify()) //uglify - сжимает файлы
         .pipe(dest('app/js/')) //Куда выгружаем
@@ -47,8 +53,9 @@ function styles() {
         }))
         .pipe(cleancss(({
             level: {
-                1:
-                    { specialComments: 0 }
+                1: {
+                    specialComments: 0
+                }
             },
             // format: 'beautify'  //выкл мини
         })))
@@ -56,11 +63,16 @@ function styles() {
         .pipe(browserSync.stream()) // Сделаем инъекцию в браузер
 }
 
-function htmlPrepare() {
+function htmlPrepareDev() {
     return src('app/html/*.html')
         .pipe(nunjucks.compile())
         .pipe(dest('app/./'))
-        .pipe(browserSync.stream());
+        .pipe(browserSync.reload({
+            stream: true
+        }));;
+    // .pipe(browserSync.reload({
+    //     stream: true
+    // }));
 }
 
 
@@ -75,39 +87,47 @@ function images() {
 }
 
 function cleanimg() {
-    return del('app/images/finished/**/*', { force: true }) // Удаляем всё содержимое папки "app/images/dest/"
+    return del('app/images/finished/**/*', {
+        force: true
+    }) // Удаляем всё содержимое папки "app/images/dest/"
 }
 
 //Очищаем папку продакшина
 function cleandist() {
-    return del('dist/**/*', { force: true }) // Удаляем всё содержимое папки "app/images/dest/"
+    return del('dist/**/*', {
+        force: true
+    }) // Удаляем всё содержимое папки "app/images/dest/"
 }
 
 //Копируем файли в продакшин
 function buildcopy() {
     return src([
-        'app/css/**/*.min.css',
-        'app/js/**/*.min.js',
-        'app/images/finished/**/*',
-        'app/**/*.html',
-    ], { base: 'app' })
+            'app/css/**/*.min.css',
+            'app/js/**/*.min.js',
+            'app/images/finished/**/*',
+            'app/**/*.html',
+        ], {
+            base: 'app'
+        })
         .pipe(dest('dist'))
 }
 
 function startwatch() {
     watch([
         'app/**/*.js',
-        '!app/**/*.min.js'  //! - исключаем фалы для watch, данное правило пишется после строки 'app/**/*.js'
+        '!app/**/*.min.js' //! - исключаем фалы для watch, данное правило пишется после строки 'app/**/*.js'
     ], scripts)
 
     // Мониторим файлы препроцессора на изменения
     watch('app/**/scss/**/*', styles);
 
     // Мониторим файлы HTML на изменения
-    watch([
-        'app/html/*.html',
-        'app/html/utils/*.html',
-    ]).on('change', browserSync.reload);
+    // watch([
+    //     'app/html/*.html',
+    //     'app/html/utils/*.html',
+    // ]).on('change', browserSync.reload);
+
+    watch('app/html/**/*.html', parallel(htmlPrepareDev))
 
     // Мониторим папку-источник изображений и выполняем images(), если есть изменения
     watch('app/images/start/**/*', images);
@@ -127,7 +147,7 @@ exports.cleanimg = cleanimg;
 exports.build = series(cleandist, styles, scripts, images, buildcopy);
 
 
-exports.dev = parallel(htmlPrepare, styles, scripts, browsersync, startwatch, images) //Вотчинг файлов
+exports.dev = parallel(htmlPrepareDev, styles, scripts, browsersync, startwatch, images) //Вотчинг файлов
 
 
 // if (process.env.NODE_ENV === 'production') {
