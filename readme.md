@@ -5,10 +5,10 @@ Start Template Gulp (v 0.2)
 <h2>How to use template</h2>
 
 <ol>
-    <li>npm i - <small>install node packege</small></li>
-    <li>gulp dev - <small>start gulp</small></li>
-    <li>gulp build - <small>build project</small></li>
-    <li>gulp cleanimg - <small>clean all minified img</small></li>
+    <li><strong>npm i</strong>  - <small>install node packege</small></li>
+    <li><strong>gulp dev </strong> - <small>start gulp</small></li>
+    <li><strong>gulp build</strong>  - <small>build project</small></li>
+    <li><strong>gulp cleanimg</strong>  - <small>clean all minified img</small></li>
 </ol>
 
 <hr>
