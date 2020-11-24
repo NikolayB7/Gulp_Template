@@ -1,0 +1,61 @@
+@include font("Montserrat", normal, 400, "../fonts/Montserrat/Montserrat-Regular.ttf");
+
+$default-font:"Montserrat";
+$default-color: #000000;
+$dedefault-size-text:16px;
+
+
+
+body {
+    font-size: $dedefault-size-text;
+    min-width: 320px;
+    position: relative;
+    line-height: 1.65;
+    font-family: $default-font;
+    overflow-x: hidden;
+    color: $default-color;
+
+}
+
+@include mmax(1199) {
+
+    $fz-root: 35;
+
+}
+
+input,
+textarea {
+    outline: none;
+
+    &:focus:required:invalid {
+        border-color: red;
+    }
+
+    &:required:valid {
+        border-color: green;
+    }
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+
+.p {
+    font-size: rem(22);
+
+    &__p {
+        font-size: rem(14);
+    }
+}

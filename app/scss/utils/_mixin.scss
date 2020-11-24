@@ -6,6 +6,7 @@
     min-width: 320px;
 }
 
+
 @mixin mmax($width, $height: 0) {
     $w: $width + px;
     $h: $height + px;
@@ -36,6 +37,9 @@
     height: auto;
 }
 
+@mixin transition {
+    transition: all 0.3s;
+}
 
 @mixin triangle($color, $size) {
     @include ib;
@@ -96,7 +100,20 @@
     height: 100%;
 }
 
+@mixin reset-btn {
+    background: transparent;
+    border-color: transparent;
+}
 
+@mixin reset-link {
+    @include transition;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+}
 
 @mixin flc {
     display: flex;
@@ -120,4 +137,34 @@
     background-size: 100% auto;
 }
 
-;
+@mixin font($fname, $fstyle, $fweight, $furl) {
+	@font-face {
+		font-family: $fname;
+		font-style: $fstyle;
+		font-weight: $fweight;
+		// font-display: swap; // Uncomment to initially display system fonts
+		src: local($fname), url($furl) format("woff2");
+	}
+}
+
+// @mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $asset-pipeline: false) {
+//     @font-face {
+//         font-family: $font-family;
+//         font-weight: $weight;
+//         font-style: $style;
+
+//         @if $asset-pipeline==true {
+//             src: font-url('#{$file-path}.eot');
+//             src: font-url('#{$file-path}.eot?#iefix') format('embedded-opentype'),
+//             font-url('#{$file-path}.woff') format('woff'),
+//             font-url('#{$file-path}.ttf') format('truetype');
+//         }
+
+//         @else {
+//             src: url('#{$file-path}.eot');
+//             src: url('#{$file-path}.eot?#iefix') format('embedded-opentype'),
+//             url('#{$file-path}.woff') format('woff'),
+//             url('#{$file-path}.ttf') format('truetype');
+//         }
+//     }
+// }
