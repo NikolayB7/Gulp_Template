@@ -87,7 +87,7 @@ function images() {
 function cleanimg() {
     return del('app/images/minified/**/*', {
         force: true
-    }) // Удаляем всё содержимое папки "app/images/dest/"
+    }) // Удаляем всё содержимое папки "app/images/minified/"
 }
 
 //Очищаем папку продакшина

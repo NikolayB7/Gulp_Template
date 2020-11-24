@@ -1,13 +1,18 @@
 Start Template Gulp (v 0.2)
 
+<hr>
+
 <h2>How to use template</h2>
 
 <ol>
-    <li>npm i</li>
-    <li>gulp build</li>
-    <li>gulp dev</li>
-    <li>gulp cleanimg</li>
+    <li>npm i - <small>install node packege</small></li>
+    <li>gulp dev - <small>start gulp</small></li>
+    <li>gulp build - <small>build project</small></li>
+    <li>gulp cleanimg - <small>clean all minified img</small></li>
 </ol>
+
+<hr>
+
 <h3>font-weight helper</h3>
 
 <ul>
