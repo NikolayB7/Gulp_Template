@@ -6,6 +6,15 @@ const {
     watch
 } = require('gulp');
 
+// const conf = {
+//     path: {
+//         app: path.resolve('../images/'),
+//         dist: path.resolve('images/'),
+//     },
+
+// };
+
+
 
 const uglify = require('gulp-uglify-es').default; //модуль uglify - сжимает файлы
 const browserSync = require('browser-sync').create(),
@@ -33,7 +42,7 @@ function scripts() {
     //Собираем все фалы js в один далее подключаем все файлы с новой строки
     //concat - является отдельным пакетом gulp
     return src([
-            'node_modules/jquery/dist/jquery.min.js',
+            // 'node_modules/jquery/dist/jquery.min.js',
             'app/js/script.js'
         ])
         .pipe(concat('main.min.js')) //main.min.js - название файла в который будет все собираться
@@ -74,6 +83,7 @@ function htmlPrepareDev() {
 }
 
 
+
 //start папка для стартовых изображений
 //minified папка для минифицированых изображений
 function images() {
@@ -103,7 +113,7 @@ function buildcopy() {
             'app/css/**/*.min.css',
             'app/js/**/*.min.js',
             'app/images/minified/**/*',
-            'app/**/*.html',
+            'app/*.html',
         ], {
             base: 'app'
         })
@@ -135,10 +145,12 @@ exports.browsersync = browsersync;
 exports.scripts = scripts;
 exports.styles = styles;
 exports.images = images;
-
+exports.cleandist = cleandist;
 // Экспортируем функцию cleanimg() как таск cleanimg
 //Для запуска в консоли gulp cleanimg
 exports.cleanimg = cleanimg;
+
+
 
 //последовательно собирем проект в продакшин (папка dest)
 //series - выполняется последовательно
